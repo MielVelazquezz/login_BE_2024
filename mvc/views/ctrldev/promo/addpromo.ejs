@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="pt-br" >
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastrar Promoção</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+</head>
+<body>
+    <main>
+        <h2>Cadastrar Promoções</h2>
+        <section id="addpromocoes">
+            <form action="/registrarpromo" method="post">
+                <div class="row">
+                    <div class="col">
+                        <label for="txtnomepromo" class="form-label">Nome Promoção</label>
+                        <input type="text" class="form-control" name="txtnomepromo" id="txtnomepromo" tabindex="1" autofocus>
+                       </div> 
+
+                       <div class="col">
+                        <label for="seldescpromo" class="form-label">Desconto</label>
+                        <select name="seldescpromo" id="seldescpromo" class="form-control" tabindex="2">
+                            <% for(let desconto of descontos){ %>
+
+                                <option id="option" value="<%= desconto.id %>"><%= desconto.valor %></option>
+
+                             <% } %>
+                        </select>
+
+                    </div></div>
+                    <div class="row">
+                    <div class="col m-4">
+                        <label for="dtstartpromo"  class="form-label">Inicio da Promoção</label>
+                        <input type="date" class="form-control" name="dtstartpromo" id="dtstartpromo" tabindex="3" >
+                    </div>
+
+                        <div class="col m-4"> 
+                        <label for="dtendpromo"  class="form-label">Fim da Promoção</label>
+                        <input type="date" class="form-control" name="dtendpromo" id="dtendpromo" tabindex="4" >
+                        </div>
+
+                        <div class="col m-4 ">
+                            <p>Promomoção ativa?</p>
+                            <select name="ativapromo" id="ativapromo" class="form-control" tabindex="7">
+                                <option value="">Selecione uma opção</option>
+                                <option value=2>Sim</option>
+                                <option value=1>Não</option>
+                            </select>
+                        </div>
+</div>
+        
+                </div>
+                <label for="txtdescpromo">Descrição</label>
+                <textarea name="txtdescpromo" id="txtdescpromo" cols="" rows="10" value="Cadastrar" class="form-control" tabindex="7"></textarea>
+                <div class="row"> 
+                    <input type="submit" class="btn btn-primary mt-4" value="Cadastrar" name="btcadpromo" id="btcadpromo" tabindex="">
+                </div>
+            </form>
+        </section>
+
+    </main>
+    <script>
+        
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+</body>
+</html>

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Adicionando pontos turísticos</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+</head>
+<body>
+    <main>
+        <section id="cadperson">
+            <h2>Cadastrar pontos Turísticos</h2>
+            <form action="/atrativos" method="post" enctype="multipart/form-data">
+                <div class="row">
+                    <input aria-hidden="true" type="hidden" id="txtid" name="txtid">
+
+                    <div class="col">
+                        <label for="txtnomeatrat" class="form-label">Nome do atrativo </label>
+                        <input type="text" name="txtnomeatrat" id="txtnomeatrat" class="form-control" tabindex="1">
+                    </div>
+                    <div class="col">
+                        <label for="imagem" class="form-label">Foto</label>
+                        <input type="file" name="imagem" id="imagem" class="form-control" tabindex="2">
+                    </div>
+                </div>
+                
+                    <div class="row">
+                        <div class="col">
+                            <label for="txtlatrat" class="form-label">Latitude</label>
+                            <input type="text" name="txtlatrat" id="txtlatrat" class="form-control" tabindex="3">
+                        </div>
+                        <div class="col">
+                            <label for="txtlongatrat" class="form-label">Longitude</label>
+                            <input type="text" name="txtlongatrat" id="txtlongatrat" class="form-control" tabindex="4">
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                   
+                    <div class="col">
+                         <label for="txtdescatrat">Descrição</label>
+                        <textarea name="txtdescatrat" id="txtdescatrat" rows="10" class="form-control" tabindex="5"></textarea>
+                    </div>
+                    <div class="col">
+                       <div class="row"> <input type="submit" value="Cadastrar" name="btcadperson" id="btcadperson" class="btn btn-warning mt-4" tabindex="6"></div>
+                    </div>
+                </div>
+                
+            </form>
+        </section>
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+</body>
+</html>

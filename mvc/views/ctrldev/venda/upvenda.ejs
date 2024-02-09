@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Atualizar Vendas</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+</head>
+
+<body>
+    <main>
+        <h2> Atualizar Venda</h2>
+        <section id="altercupons">
+            <form id="form-venda">
+                <!-- Iniciando primeira -->
+                <div class="row">
+                    <input value="<%= venda.id %>" aria-hidden="true" type="hidden" id="txtid" name="txtid">
+                    <div class="col">
+                        <label for="horavenda" class="form-label">Hora da venda</label>
+                        <input value="<%= venda.hora_venda %>" type="time" class="form-control" name="horavenda"
+                            id="horavenda" tabindex="1" autofocus>
+                    </div>
+                    <div class="col">
+                        <label for="selecioneskin"  class="form-label">Skins</label>
+                        <select name="seldescpromo" id="seldescpromo" class="form-control" tabindex="2">
+                            <% for(let skin of skins){ %>
+
+                                <option id="option" value="<%= skin.id %>"><%= skin.nome %></option>
+
+                             <% } %>
+                        </select>
+                    </div>
+                </div>
+                <!-- Iniciando segunda linha -->
+                <div class="row mt-4">
+                    <div class="col">
+                        <label for="diavenda" class="form-label">Dia da Venda</label>
+                        <% let startDateFormatted = venda.dia_venda ? new Date(venda.dia_venda).toISOString().split('T')[0] : ''; %>
+                        <input value="<%= startDateFormatted %>" type="date" class="form-control" name="diavenda"
+                            id="diavenda" tabindex="3">
+                    </div>
+                    <div class="col">
+                        <label for="txtvalorcupom" class="form-label">Valor do Cupom</label>
+                        <select name="inserircupom" id="inserircupom" class="form-control" tabindex="4">
+                            <% for(let cupom of cupoms){ %>
+
+                                <option id="option" value="<%= cupom.id %>"><%= cupom.nome %></option>
+
+                             <% } %>                         
+                        </select>
+                  
+                    </div>
+                </div>
+
+                <div class="row">
+                    <input type="button" onclick="atualizar()" class="btn btn-primary mt-4" value="Cadastrar"
+                        name="btcadcupons" id="btcadcupons" tabindex="5">
+
+                </div>
+            </form>
+        </section>
+    </main>
+
+    <script>
+
+        async function apagar(id) {
+            const resposta = await fetch(`/venda/apagar/${id}`, { method: 'DELETE' });
+            const json = await resposta.json();
+            const status = json;
+
+            console.log(status);
+            location.reload();
+        }
+
+        document.getElementById("form-venda").addEventListener("submit", (e) => {
+            e.preventDefault()
+            atualizar()
+        } )
+
+        async function atualizar(id){
+
+            const venda = {
+                "id": document.getElementById("txtid").value,
+                "hora": document.getElementById("horavenda").value,
+                "data": document.getElementById("diavenda").value,
+                "cupom": document.getElementById("inserircupom").value
+            }
+  
+            const resposta = await fetch(`/venda/alterar`, { 
+                method:'PUT',
+                headers: {
+                    'Content-Type':'application/json'
+                },
+                body: JSON.stringify(venda)
+             })
+            const json = await resposta.json()
+            const status = await json
+
+            console.log(venda)
+
+        }
+
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>

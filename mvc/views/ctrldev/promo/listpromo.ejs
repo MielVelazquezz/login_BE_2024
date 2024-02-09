@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Listar skins</title>
+    <link rel="stylesheet" href="../../public/css/style.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+</head>
+</head>
+<body>
+    <header class="header">
+        <div class="ha">
+            <h1>Perentino</h1>
+        <a href="/home"><button class="btn btn-light">Home</button></a>
+        <a href="/cupom/lista"><button class="btn btn-light">Cupons</button></a>
+        <a href="/descontos/lista"><button class="btn btn-light">Descontos</button></a>
+        <a href="/skin/lista"><button class="btn btn-light">Skins</button></a>
+        <a href="/venda/lista"><button class="btn btn-light">Vendas</button></a>
+        <a href="/promocao/lista"><button class="btn btn-light">Promoções</button></a>
+        <a href="/pagina/listatrativos"><button class="btn btn-light">Atrativos</button></a>
+        <a href="logar.html"><button class="btn btn-light m-5">Sair</button></a>
+         </div>
+    </header>
+    <main>
+        <h2>Listando Promoções</h2>
+        <section class="list">
+            <div class="row">
+                <a href="/promocao" style="color: black;"><button  style="width: 99%; margin: 8px;" class="btn bg-danger">Cadastrar Promoções</button></a>
+            </div>
+            <div class="row border border-1 border-Success rounded m-2 p-1 d-flex">
+
+                <div class="col border-end d-flex justify-content-center align-self-center"><h6>Nome</h6></div>
+                        <div class="col border-end d-flex justify-content-center align-self-center"><h6>Data de Início</h6></div>
+                        <div class="col border-end d-flex justify-content-center align-self-center"><h6>Data do Fim</h6></div>
+                        <div class="col border-end d-flex justify-content-center align-self-center"><h6>Descrição</h6></div>
+                        <div class="col border-end d-flex justify-content-center align-self-center"><h6>Desconto</h6></div>
+                        <div class="col border-end d-flex justify-content-center align-self-center"><h6>Ativa</h6></div>
+                        <div class="col border-end d-flex justify-content-center align-self-center"><h6>Atualizar</h6></div>
+                        <div class="col d-flex justify-content-center align-self-center"><h6>Deletar</h6></div>
+    
+                </div>
+           
+            <% for(let promocao of promos){  %>
+
+                <!-- Inicio do loop de dados -->
+                <div class="row border border-1 border-warning rounded m-2 p-1 d-flex ">
+                    <div class="col border-end d-flex justify-content-center align-self-center"><%= promocao.nome_promo %> </div>
+                    <div class="col border-end d-flex justify-content-center align-self-center">
+                        <% if (promocao.dt_start) {  %>
+                            <% let data = new Date(promocao.dt_start)  %>
+                            <% let dataFormatada = (   data.getFullYear() + "-" + (    (data.getMonth() + 1)  ) + "-" + (data.getDate())   ) %>
+                            <%= dataFormatada %>
+                        <% } else { %>
+                            Data Indisponível
+                        <% } %>
+                    </div>
+                    <div class="col border-end d-flex justify-content-center align-self-center">
+                        <% if (promocao.dt_end) {  %>
+                            <% let data = new Date(promocao.dt_end)  %>
+                            <% let dataFormatada = (   data.getFullYear() + "-" + (    (data.getMonth() + 1)  ) + "-" + (data.getDate())   ) %>
+                            <%= dataFormatada %>
+                        <% } else { %>
+                            Data Indisponível
+                        <% } %>
+                    </div>
+                    <div class="col border-end d-flex justify-content-center align-self-center"><%= promocao.descr_promo %></div>
+
+                    
+                        <div class="col border-end d-flex justify-content-center align-self-center"><%= promocao.valorDesconto %></div>
+                   
+
+                    <div class="col border-end d-flex justify-content-center align-self-center"><%= promocao.ativa %></div>
+                    <div class="col border-end d-flex justify-content-center align-self-center"><button onclick="atualizar(<%= promocao.id %>)" class="btn bg-success"><i class="bi bi-pen"></i> Update</button></div>
+                  <div class="col d-flex justify-content-center align-self-center"><button onclick="apagar(<%= promocao.id %>)" class="btn bg-danger"> <i class="bi bi-trash3"></i> Delete</button></div>
+              </div>
+            
+              <% } %>
+             
+        </section>
+    </main>
+    <script>
+
+      async function apagar(id){
+                  
+                  // cupom/apagar/10
+                  const resposta = await fetch('/promocao/apagar/'+id, { method:'DELETE' })
+                  const json = await resposta.json()
+                  const status = await json
+      
+                  console.log(status)
+      
+                  location.reload()
+                  }
+                  function atualizar(id){
+                
+                    location.href = "/promocao/alterar/"+id
+                    
+
+                } 
+           
+      
+          </script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
+    
+</body>
+</html> 

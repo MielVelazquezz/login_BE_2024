@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastrar Cupons</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+</head>
+
+<body>
+    <main>
+        <h2>Atualizar cupom</h2>
+        <section id="altercupons">
+            <form id="form-cupom">
+                <!-- Iniciando primeira -->
+                <div class="row">
+                    <input value="<%= cupom.id %>" aria-hidden="true" type="hidden" id="txtid" name="txtid">
+                    <div class="col">
+                        <label for="txtnomecupom" class="form-label">Nome do cupom</label>
+                        <input value="<%= cupom.nome %>" type="text" class="form-control" name="txtnomecupom"
+                            id="txtnomecupom" tabindex="1" autofocus>
+                    </div>
+                    <div class="col">
+                        <label for="txtcodcupom" class="form-label">Código do Cupom</label>
+                        <input value="<%= cupom.Codigo %>" type="text" class="form-control" name="txtcodcupom"
+                            id="txtcodcupom" tabindex="2">
+                    </div>
+                </div>
+                <!-- Iniciando segunda linha -->
+                <div class="row mt-4">
+                    <div class="col">
+                        <label for="dtval" class="form-label">Validade</label>
+                        <% let startDateFormatted = cupom.validade ? new Date(cupom.validade).toISOString().split('T')[0] : ''; %>
+                        <input value="<%= startDateFormatted %>" type="date" class="form-control" name="dtval"
+                            id="dtval" tabindex="3">
+                    </div>
+                    <div class="col">
+                        <label for="txtvalorcupom" class="form-label">Valor do Cupom</label>
+                        <input value="<%= cupom.valor %>" type="text" class="form-control" name="txtvalorcupom"
+                            id="txtvalorcupom" tabindex="4">
+                    </div>
+                </div>
+
+                <div class="row">
+                    <a href="/cupom/lista" onclick="atualizar();">
+                        <input type="button" class="btn btn-warning mt-4" value="Cadastrar" name="btcadcupons"
+                            id="btcadcupons" tabindex="5">
+                    </a>
+                </div>
+            </form>
+        </section>
+    </main>
+
+    <script>
+        document.getElementById("form-cupom").addEventListener("submit", (e) => {
+            e.preventDefault();
+            atualizar();
+        })
+
+        async function atualizar() {
+
+            const cupom = {
+                "id": document.getElementById("txtid").value,
+                "nome": document.getElementById("txtnomecupom").value,
+                "codigo": document.getElementById("txtcodcupom").value,
+                "validade": document.getElementById("dtval").value,
+                "valor": document.getElementById("txtvalorcupom").value
+            }
+
+            const resposta = await fetch(`/cupom/alterar`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(cupom)
+            })
+            const json = await resposta.json()
+            const status = await json
+
+            console.log(cupom)
+
+        }
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>
